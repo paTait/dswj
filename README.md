@@ -8,5 +8,6 @@ https://www.crcpress.com/Data-Science-with-Julia/McNicholas-Tait/p/book/97811384
 
 Directories:
 +  src: contains the source code for chapters 2-7 of the book. 
++  data: data files used in the book.
 
 If you have any issues or discover any bugs with the code, please log an issue and it will be addressed expeditiously.
