@@ -5,7 +5,7 @@ Gadfly.push_theme(:dark)
 
 ## create a df of means of each level of x2.
 df_bc = by(df_1, :x2, nrow)
-rename!(df_bc, :x1 => :count)
+rename!(df_bc, :nrow => :count)
 
 ## Geom.bar to draw the bars
 ## Guide.ylabel to rename the Y label
