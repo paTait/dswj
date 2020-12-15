@@ -10,4 +10,8 @@ Directories:
 +  src: contains the source code for chapters 2-7 of the book. 
 +  data: data files used in the book.
 
-If you have any issues or discover any bugs with the code, please log an issue and it will be addressed expeditiously.
+If you:
++ discover any bugs with the code, please log an issue.
++ would like to discuss the book, the code or both, please contribute to the discussions.
+
+The code in the repository will be updated in the first quarter of 2021. The updates will reflect the current state of the package ecosystem and core language (Julia 1.5.x +). 
