@@ -40,23 +40,17 @@ recipe_types2 = Dict{String, Union}(
 )
 
 ## read csv file
-df_recipe_raw = CSV.read("recipeData.csv",
-  DataFrame;
+df_recipe_raw = CSV.File("recipeData.csv";
   delim = ',' ,
   quotechar = '"',
   missingstring = "N/A",
   datarow = 2,
   header = recipe_header,
-  types = recipe_types2,
-  allowmissing=:all
-)
+  types = recipe_types2
+) |> DataFrame
 
 ## Drop columns
-delete!(df_recipe_raw, [:prime_method, :prime_am, :url])
-
-#####
-## Write the raw data dataframe
-JLD2.@save "recipeRaw.jld2"  df_recipe_raw
+deletecols!(df_recipe_raw, [:prime_method, :prime_am, :url])
 
 ###########################
 ## Create  cleaned version
@@ -68,7 +62,7 @@ df_recipe = deepcopy(df_recipe_raw)
 filter!(row -> !ismissing(row[:style]), df_recipe)
 
 println("-- df_recipe: ",size(df_recipe))
-#  df_recipe: (73861, 19)
+#  df_recipe: (73265, 19)
 
 ## Make beer categories
 df_recipe[:y] = map(x ->
@@ -82,14 +76,4 @@ df_recipe[:style])
 filter!(row -> row[:y] != 99, df_recipe)
 
 ## remove extraneous columns
-delete!(df_recipe, [:beer_id, :name, :style, :style_id])
-
-## create dummy variables - one-hot-encoding
-onehot_encoding!(df_recipe, "brew_method" , trace = true)
-onehot_encoding!(df_recipe, "sugar_scale")
-
-describe(df_recipe, stats=[:eltype, :nmissing])
-
-delete!(df_recipe, [:brew_method,:sugar_scale])
-
-JLD2.@save "recipe.jld2"  df_recipe
+deletecols!(df_recipe, [:beer_id, :name, :style, :style_id])
